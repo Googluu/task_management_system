@@ -15,9 +15,19 @@ module.exports = function () {
     return service.create(data);
   }
 
+  function update(id, change) {
+    return service.update(id, change);
+  }
+
+  function remove(id) {
+    return service.delete(id);
+  }
+
   return {
     findAll,
     findOne,
     create,
+    update,
+    remove,
   };
 };

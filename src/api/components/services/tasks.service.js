@@ -16,9 +16,9 @@ class TasksService {
   }
 
   async create(data) {
-    const newTask = await {
+    const newTask = {
       ...data,
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
     };
     this.tasks.push(newTask);
     return newTask;
@@ -34,6 +34,23 @@ class TasksService {
 
   async findOne(id) {
     return this.tasks.find((item) => item.id === id);
+  }
+
+  async update(id, change) {
+    const index = this.tasks.findIndex((item) => item.id === id);
+    if (index === -1) throw new Error('Task not found');
+    const task = this.tasks[index];
+    this.tasks[index] = {
+      ...task,
+      ...change,
+    };
+    return this.tasks[index];
+  }
+
+  async delete(id) {
+    const index = this.tasks.findIndex((item) => item.id === id);
+    if (index === -1) throw new Error('Task not found');
+    return this.tasks.splice(index, 1);
   }
 }
 
