@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgresql-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${DB_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${DB_EMAIL_PASSWORD}
+    ports:
+      - "5050:80"
+      
+  app:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: postgres
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+volumes:
+  postgresql-data:
