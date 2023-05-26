@@ -1,10 +1,10 @@
-const TasksService = require('../services/tasks.service');
+const UsersService = require('../services/users.service');
 
 module.exports = function () {
-  const service = new TasksService();
+  const service = new UsersService();
 
   function findAll() {
-    return service.findAllTasks();
+    return service.findAll();
   }
 
   function findOne(id) {
