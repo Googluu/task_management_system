@@ -6,6 +6,7 @@ const config = {
   isDev: process.env.NODE_ENV === 'development',
   port: process.env.PORT || 3000,
   uriDb: process.env.URI_POSTGRES,
+  jwtKey: process.env.JWT_KEY,
 };
 
 module.exports = { config };

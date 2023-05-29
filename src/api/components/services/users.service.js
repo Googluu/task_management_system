@@ -12,7 +12,7 @@ class UsersService {
       ...data,
       password: hash,
     });
-    // delete newUser.dataValues.password;
+    delete newUser.dataValues.password;
     return newUser;
   }
 
@@ -28,6 +28,13 @@ class UsersService {
     if (!user) throw notFound(`User ${id} not found`);
     return user;
   }
+
+  // async findByEmail(email) {
+  //   const userEmail = await models.User.findAll({
+  //     where: { email },
+  //   });
+  //   return userEmail;
+  // }
 
   async update(id, change) {
     const user = await this.findOne(id);
