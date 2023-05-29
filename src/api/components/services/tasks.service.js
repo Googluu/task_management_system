@@ -1,3 +1,5 @@
+const { notFound } = require('@hapi/boom');
+
 const { models } = require('../../../libs/sequelize');
 
 class TasksService {
@@ -13,6 +15,7 @@ class TasksService {
 
   async findOne(id) {
     const task = await models.Task.findByPk(id);
+    if (!task) throw notFound(`Task ${id} not found`);
     return task;
   }
 

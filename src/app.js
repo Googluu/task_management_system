@@ -5,7 +5,12 @@ const tasksRouter = require('./api/components/routes/tasks.router');
 const usersRouter = require('./api/components/routes/users.router');
 
 // MIDDLEWARE
-const { logHandler, errorHandler } = require('./middleware/err.handler');
+const {
+  logHandler,
+  errorHandler,
+  boomErrorHanlder,
+  sequelizeErrorHandler,
+} = require('./middleware/err.handler');
 
 const createApp = () => {
   const app = express();
@@ -24,6 +29,8 @@ const createApp = () => {
 
   // MIDDLEWARE
   app.use(logHandler);
+  app.use(boomErrorHanlder);
+  app.use(sequelizeErrorHandler);
   app.use(errorHandler);
 
   return app;
