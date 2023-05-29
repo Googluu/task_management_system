@@ -17,6 +17,14 @@ class AuthService {
       user,
     };
   }
+
+  async verifyToken(headers) {
+    const token = headers.split(' ')[1];
+    if (!token) throw notFound('Token not found');
+    const user = jwt.verify(token, config.jwtKey);
+    if (!user) throw unauthorized();
+    return user;
+  }
 }
 
 module.exports = AuthService;

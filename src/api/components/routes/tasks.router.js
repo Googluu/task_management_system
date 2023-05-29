@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 const validatorHandler = require('../../../middleware/validator.handler');
+const verificarToken = require('../../../middleware/auth.handler');
 const {
   createTask,
   findTaskById,
@@ -36,6 +37,7 @@ router.get(
 router.post(
   '/',
   validatorHandler(createTask, 'body'),
+  verificarToken,
   async (req, res, next) => {
     try {
       const body = req.body;
