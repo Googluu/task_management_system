@@ -4,6 +4,9 @@ const express = require('express');
 const tasksRouter = require('./api/components/routes/tasks.router');
 const usersRouter = require('./api/components/routes/users.router');
 
+// MIDDLEWARE
+const { logHandler, errorHandler } = require('./middleware/err.handler');
+
 const createApp = () => {
   const app = express();
 
@@ -18,6 +21,10 @@ const createApp = () => {
   // ROUTER
   app.use('/api/v1/tasks', tasksRouter);
   app.use('/api/v1/users', usersRouter);
+
+  // MIDDLEWARE
+  app.use(logHandler);
+  app.use(errorHandler);
 
   return app;
 };
