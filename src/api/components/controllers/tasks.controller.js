@@ -4,7 +4,7 @@ module.exports = function () {
   const service = new TasksService();
 
   function findAll() {
-    return service.findAllTasks();
+    return service.findAll();
   }
 
   function findOne(id) {

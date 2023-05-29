@@ -1,56 +1,30 @@
-const { faker } = require('@faker-js/faker');
-
-const { generateTasks } = require('../../../db/mocks/task.mock');
+const { models } = require('../../../libs/sequelize');
 
 class TasksService {
-  constructor() {
-    this.tasks = [];
-    this.generate();
-  }
-
-  generate() {
-    let limit = 10;
-    for (let i = 0; i < limit; i++) {
-      this.tasks.push(generateTasks());
-    }
-  }
-
   async create(data) {
-    const newTask = {
-      ...data,
-      id: faker.string.uuid(),
-    };
-    this.tasks.push(newTask);
+    const newTask = await models.Task.create(data);
     return newTask;
   }
 
   async findAll() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.tasks);
-      }, 3000);
-    });
+    const tasks = await models.Task.findAll();
+    return tasks;
   }
 
   async findOne(id) {
-    return this.tasks.find((item) => item.id === id);
+    const task = await models.Task.findByPk(id);
+    return task;
   }
 
   async update(id, change) {
-    const index = this.tasks.findIndex((item) => item.id === id);
-    if (index === -1) throw new Error('Task not found');
-    const task = this.tasks[index];
-    this.tasks[index] = {
-      ...task,
-      ...change,
-    };
-    return this.tasks[index];
+    const task = await this.findOne(id);
+    const response = await task.update(change);
+    return response;
   }
 
   async delete(id) {
-    const index = this.tasks.findIndex((item) => item.id === id);
-    if (index === -1) throw new Error('Task not found');
-    return this.tasks.splice(index, 1);
+    const task = await this.findOne(id);
+    await task.destroy();
   }
 }
 

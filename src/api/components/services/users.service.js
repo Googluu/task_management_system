@@ -1,56 +1,30 @@
-const { faker } = require('@faker-js/faker');
-
-const { generateUsers } = require('../../../db/mocks/user.mock');
+const { models } = require('../../../libs/sequelize');
 
 class UsersService {
-  constructor() {
-    this.users = [];
-    this.generate();
-  }
-
-  generate() {
-    let limit = 10;
-    for (let i = 0; i < limit; i++) {
-      this.users.push(generateUsers());
-    }
-  }
-
   async create(data) {
-    const newUser = {
-      ...data,
-      id: faker.string.uuid(),
-    };
-    this.users.push(newUser);
+    const newUser = await models.User.create(data);
     return newUser;
   }
 
   async findAll() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.users);
-      }, 3000);
-    });
+    const users = await models.User.findAll();
+    return users;
   }
 
   async findOne(id) {
-    return this.users.find((item) => item.id === id);
+    const user = await models.User.findByPk(id);
+    return user;
   }
 
   async update(id, change) {
-    const index = this.users.findIndex((item) => item.id === id);
-    if (index === -1) throw new Error('Task not found');
-    const user = this.users[index];
-    this.users[index] = {
-      ...user,
-      ...change,
-    };
-    return this.users[index];
+    const task = await this.findOne(id);
+    const response = await task.update(change);
+    return response;
   }
 
   async delete(id) {
-    const index = this.users.findIndex((item) => item.id === id);
-    if (index === -1) throw new Error('Task not found');
-    return this.users.splice(index, 1);
+    const task = await this.findOne(id);
+    await task.destroy();
   }
 }
 
