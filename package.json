@@ -4,7 +4,12 @@
   "description": "Un sistema de gestión de tareas que permita a los usuarios crear, actualizar, eliminar y ver tareas. El sistema debe tener autenticación de usuarios y permitir que los usuarios solo accedan a sus propias tareas.",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon ./src/api/index.js"
+    "dev": "NODE_ENV=development nodemon ./src/api/index.js",
+    "start": "node ./src/api/index.js",
+    "migrations:generate": "sequelize-cli migration:generate --name",
+    "migrations:run": "sequelize-cli db:migrate",
+    "migrations:revert": "sequelize-cli db:migrate:undo",
+    "migrations:delete": "sequelize-cli db:migrate:undo:all"
   },
   "author": "sneyder",
   "license": "MIT",
