@@ -14,20 +14,22 @@ class UsersService {
   }
 
   async findOne(id) {
-    const user = await models.User.findByPk(id);
-    if (!task) throw notFound(`Task ${id} not found`);
+    const user = await models.User.findByPk(id, {
+      include: ['tasks'],
+    });
+    if (!user) throw notFound(`User ${id} not found`);
     return user;
   }
 
   async update(id, change) {
-    const task = await this.findOne(id);
-    const response = await task.update(change);
+    const user = await this.findOne(id);
+    const response = await user.update(change);
     return response;
   }
 
   async delete(id) {
-    const task = await this.findOne(id);
-    await task.destroy();
+    const user = await this.findOne(id);
+    await user.destroy();
   }
 }
 

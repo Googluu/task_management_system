@@ -9,12 +9,16 @@ class TasksService {
   }
 
   async findAll() {
-    const tasks = await models.Task.findAll();
+    const tasks = await models.Task.findAll({
+      include: ['user'],
+    });
     return tasks;
   }
 
   async findOne(id) {
-    const task = await models.Task.findByPk(id);
+    const task = await models.Task.findByPk(id, {
+      include: ['user'],
+    });
     if (!task) throw notFound(`Task ${id} not found`);
     return task;
   }

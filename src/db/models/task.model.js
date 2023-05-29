@@ -1,5 +1,7 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
+const { USER_TABLE } = require('./user.model');
+
 const TASK_TABLE = 'tasks';
 
 const TaskSchema = {
@@ -23,10 +25,23 @@ const TaskSchema = {
     field: 'created_at',
     defaultValue: Sequelize.NOW,
   },
+  userId: {
+    field: 'user_id',
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: USER_TABLE,
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL',
+  },
 };
 
 class Task extends Model {
-  static {}
+  static associate(models) {
+    this.belongsTo(models.User, { as: 'user' });
+  }
 
   static config(sequelize) {
     return {
