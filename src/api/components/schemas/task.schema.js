@@ -14,7 +14,7 @@ const createTask = Joi.object({
 const updateTask = Joi.object({
   title: title,
   description: description,
-  // userId: userId,
+  userId: userId,
 });
 
 const findTaskById = Joi.object({

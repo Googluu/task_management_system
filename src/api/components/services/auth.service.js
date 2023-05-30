@@ -11,7 +11,10 @@ class AuthService {
     if (!user) throw unauthorized();
     const isPasswordValid = bcrypt.compareSync(password, user.password);
     if (!isPasswordValid) throw unauthorized();
-    const token = jwt.sign(user.id, config.jwtKey);
+    const payload = {
+      sub: user.id,
+    };
+    const token = jwt.sign(payload, config.jwtKey);
     return {
       token,
       user,
@@ -19,10 +22,16 @@ class AuthService {
   }
 
   async verifyToken(headers) {
-    const token = headers.split(' ')[1];
+    const token = headers;
     if (!token) throw notFound('Token not found');
-    const user = jwt.verify(token, config.jwtKey);
+    const user = jwt.verify(token, config.jwtKey, { expiresIn: '1hr' });
     if (!user) throw unauthorized();
+    return user;
+  }
+
+  async getUser(userId) {
+    const user = await models.User.findByPk(userId);
+    if (!user) throw notFound('User not found');
     return user;
   }
 }
