@@ -1,16 +1,12 @@
 const { Router } = require('express');
 
 const validatorHandler = require('../../../middleware/validator.handler');
-// const verifyToken = require('../../../middleware/auth.handler');
 const {
   createTask,
   findTaskById,
   updateTask,
 } = require('../schemas/task.schema');
-const {
-  Tasks,
-  Auth: { verifyToken },
-} = require('./');
+const { Tasks } = require('./');
 
 const router = Router();
 
@@ -40,7 +36,6 @@ router.get(
 router.post(
   '/',
   validatorHandler(createTask, 'body'),
-  verifyToken,
   async (req, res, next) => {
     try {
       const body = req.body;

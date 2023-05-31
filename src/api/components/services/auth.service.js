@@ -22,7 +22,7 @@ class AuthService {
   }
 
   async verifyToken(headers) {
-    const token = headers;
+    const token = headers.split(' ')[1];
     if (!token) throw notFound('Token not found');
     const user = jwt.verify(token, config.jwtKey, { expiresIn: '1hr' });
     if (!user) throw unauthorized();
