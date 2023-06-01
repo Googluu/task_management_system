@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 const validatorHandler = require('../../../middleware/validator.handler');
+const verifyToken = require('../../../middleware/auth.handler');
 const {
   createTask,
   findTaskById,
@@ -10,7 +11,7 @@ const { Tasks } = require('./');
 
 const router = Router();
 
-router.get('/', async (_, res, next) => {
+router.get('/', verifyToken, async (_, res, next) => {
   try {
     const tasks = await Tasks.findAll();
     res.status(200).json(tasks);
@@ -22,6 +23,7 @@ router.get('/', async (_, res, next) => {
 router.get(
   '/:id',
   validatorHandler(findTaskById, 'params'),
+  verifyToken,
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -36,6 +38,7 @@ router.get(
 router.post(
   '/',
   validatorHandler(createTask, 'body'),
+  verifyToken,
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -51,6 +54,7 @@ router.put(
   '/:id',
   validatorHandler(findTaskById, 'params'),
   validatorHandler(updateTask, 'body'),
+  verifyToken,
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -66,6 +70,7 @@ router.put(
 router.delete(
   '/:id',
   validatorHandler(findTaskById, 'params'),
+  verifyToken,
   async (req, res, next) => {
     try {
       const { id } = req.params;

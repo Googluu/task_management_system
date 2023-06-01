@@ -16,8 +16,8 @@ class AuthService {
     };
     const token = jwt.sign(payload, config.jwtKey);
     return {
-      token,
       user,
+      token,
     };
   }
 
