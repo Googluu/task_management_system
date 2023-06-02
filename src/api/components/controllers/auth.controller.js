@@ -11,7 +11,7 @@ const login = async (req, res, next) => {
   }
 };
 
-const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, _, next) => {
   try {
     const headers = req.headers['authorization'];
     const user = await service.verifyToken(headers);
