@@ -42,8 +42,12 @@ router.post(
   async (req, res, next) => {
     try {
       const body = req.body;
-      const newTask = await Tasks.create(body);
-      res.status(201).json(newTask);
+      const data = await Tasks.create(body);
+      console.log(data);
+      res.status(201).json({
+        status: '201 Created',
+        data,
+      });
     } catch (error) {
       next(error);
     }
