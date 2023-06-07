@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./src/api/index.js",
-    "start": "node ./src/api/index.js",
+    "start": "NODE_ENV=production node ./src/api/index.js",
     "test": "mocha tests/*.test.js",
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "sequelize-cli db:migrate",
