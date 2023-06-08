@@ -1,12 +1,10 @@
 FROM node:18-alpine
 
-RUN npm install -g sequelize-cli
-
-WORKDIR /usr/src/app
+WORKDIR /usr/src/task-management-system/app
 
 COPY package*.json ./
 
-COPY . .
+COPY ./ ./
 
 RUN npm install
 

@@ -9,6 +9,7 @@ module.exports = {
   production: {
     url: config.uriDb,
     dialect: 'postgres',
+    logging: false,
     dialectOptions: {
       ssl: {
         rejectUnauthorized: false,
