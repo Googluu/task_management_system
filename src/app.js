@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 //ROUTER
 const tasksRouter = require('./api/components/routes/tasks.router');
@@ -17,6 +18,7 @@ const createApp = () => {
   const app = express();
 
   app.use(express.json());
+  app.use(cors());
 
   app.get('/', (_, res) => {
     res.status(200).send({

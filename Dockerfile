@@ -8,9 +8,7 @@ COPY ./ ./
 
 RUN npm install
 
-ENV NODE_ENV=production
-
-RUN npm run migrations:generate --src/db/migrations/InitDB
+RUN npm run migrations:generate
 
 RUN npm run migrations:run
 
