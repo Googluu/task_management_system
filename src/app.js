@@ -6,6 +6,9 @@ const tasksRouter = require('./api/components/routes/tasks.router');
 const usersRouter = require('./api/components/routes/users.router');
 const authRouter = require('./api/components/routes/auth.router');
 
+// GRAPHQL API
+const useGraphQL = require('./api/graphql/');
+
 // MIDDLEWARE
 const {
   logHandler,
@@ -14,7 +17,7 @@ const {
   sequelizeErrorHandler,
 } = require('./middleware/err.handler');
 
-const createApp = () => {
+const createApp = async () => {
   const app = express();
 
   app.use(express.json());
@@ -30,6 +33,9 @@ const createApp = () => {
   app.use('/api/v1/tasks', tasksRouter);
   app.use('/api/v1/users', usersRouter);
   app.use('/api/v1/auth', authRouter);
+
+  // GRAPHQL API
+  await useGraphQL(app);
 
   // MIDDLEWARE
   app.use(logHandler);
