@@ -2,7 +2,7 @@
 
 ## Descripción:
 
-Un sistema de gestión de tareas que permita a los usuarios crear, actualizar, eliminar y ver tareas. El sistema debe tener autenticación de usuarios y permitir que los usuarios solo accedan a sus propias tareas.
+Un sistema de gestión de tareas que permita a los usuarios crear, actualizar, eliminar y ver tareas. El sistema tiene autenticación de usuarios y permitir que los usuarios solo accedan a sus propias tareas.
 
 Funcionalidades:
 
