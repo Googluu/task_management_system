@@ -1,0 +1,10 @@
+type Query {
+  hello: String!
+  getPerson(name: String, age: Int): String
+  getInt(age: Int!): Int
+  getFloat(price: Float): Float
+  getString: String
+  getBoolean: Boolean
+  getID: ID
+  getNumbers(numbers: [Int!]!): [Int]
+}

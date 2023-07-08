@@ -3,22 +3,25 @@ const {
   ApolloServerPluginLandingPageLocalDefault,
 } = require('@apollo/server/plugin/landingPage/default');
 const { expressMiddleware } = require('@apollo/server/express4');
-
-const typeDefs = `
-  type Query {
-    hello: String
-  }
-`;
+const { loadFiles } = require('@graphql-tools/load-files');
 
 const resolvers = {
   Query: {
     hello: () => 'Hi world!',
+    getPerson: (_, { name, age }) =>
+      `Hello, my name is ${name}, I'm ${age} years old`,
+    getInt: (_, { age }) => age,
+    getFloat: (_, { price }) => price,
+    getString: () => 'palabra',
+    getBoolean: () => true,
+    getID: () => '1212',
+    getNumbers: (_, { numbers }) => numbers,
   },
 };
 
 const useGraphQL = async (app) => {
   const server = new ApolloServer({
-    typeDefs,
+    typeDefs: await loadFiles('./src/**/*.graphql'),
     resolvers,
     playground: true,
     plugins: [ApolloServerPluginLandingPageLocalDefault],
