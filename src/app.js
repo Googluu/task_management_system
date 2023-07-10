@@ -1,10 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
-//ROUTER
-const tasksRouter = require('./api/components/routes/tasks.router');
-const usersRouter = require('./api/components/routes/users.router');
-const authRouter = require('./api/components/routes/auth.router');
+// ROUTER API
+const routerApi = require('./api/components/server');
 
 // GRAPHQL API
 const useGraphQL = require('./api/graphql/');
@@ -29,10 +27,8 @@ const createApp = async () => {
     });
   });
 
-  // ROUTER
-  app.use('/api/v1/tasks', tasksRouter);
-  app.use('/api/v1/users', usersRouter);
-  app.use('/api/v1/auth', authRouter);
+  // ROUTER API
+  routerApi(app);
 
   // GRAPHQL API
   await useGraphQL(app);
