@@ -3,7 +3,7 @@ const { unauthorized } = require('@hapi/boom');
 
 const { config } = require('../config/config');
 
-const verifyToken = (req, res, next) => {
+const verifyToken = (req, _, next) => {
   const token = req.headers.authorization;
   if (!token) throw unauthorized();
   try {

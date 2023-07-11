@@ -1,5 +1,10 @@
 const { Router } = require('express');
 
+// VALIDATION
+const validatorHandler = require('../../../middleware/validator.handler');
+// SCHEMA
+const authSchema = require('../schemas/auth.schema');
+
 const {
   login,
   getUser,
@@ -8,7 +13,7 @@ const {
 
 const router = Router();
 
-router.post('/login', login);
+router.post('/login', validatorHandler(authSchema, 'body'), login);
 router.get('/user', verifyToken, getUser);
 
 module.exports = router;

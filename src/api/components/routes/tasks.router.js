@@ -43,7 +43,6 @@ router.post(
     try {
       const body = req.body;
       const data = await Tasks.create(body);
-      console.log(data);
       res.status(201).json({
         status: '201 Created',
         data,

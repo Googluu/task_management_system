@@ -23,7 +23,7 @@ const createApp = async () => {
 
   app.get('/', (_, res) => {
     res.status(200).send({
-      message: 'Welcome to the API Task management system',
+      message: 'Welcome to the API Task Management System',
     });
   });
 

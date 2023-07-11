@@ -26,8 +26,8 @@ const getUser = async (req, res, next) => {
   try {
     const userId = req.sub;
     console.log(userId);
-    const user2 = await service.getUser(userId);
-    res.status(200).json(user2);
+    const user = await service.getUser(userId);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
