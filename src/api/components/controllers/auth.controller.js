@@ -16,11 +16,11 @@ const verifyToken = async (req, _, next) => {
     const headers = req.headers['authorization'];
     const user = await service.verifyToken(headers);
     req.sub = user.sub;
+    next();
     console.log(req.sub);
   } catch (error) {
     next(error);
   }
-  next();
 };
 
 const getUser = async (req, res, next) => {
